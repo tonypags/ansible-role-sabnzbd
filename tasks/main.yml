@@ -1,0 +1,66 @@
+---
+# tasks file for ansible-role-sabnzbd
+- name: Create SABnzbd user
+  user:
+    name: "{{ sabnzbd_user }}"
+    state: present
+  tags:
+    - add_sabnzbd_user
+
+- name: Install epel-release
+  yum:
+    name: epel-release
+    state: present
+
+- name: Install rpmforge repo
+  yum:
+    name: "{{ rpmforge_repo }}"
+    state: present
+
+- name: Install yum prerequisites
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ sabnzbd_prereqs }}"
+
+- name: Install pip prerequisites
+  pip:
+    name: "{{ item }}"
+  with_items: "{{ pip_prereqs }}"
+
+#- name: Create install location
+#  file:
+#    path: "{{ sabnzbd_directory }}"
+#    state: directory
+#    owner: usenet
+#    group: usenet
+#    mode: 2770
+#  tags:
+#    - debug
+
+- name: Clone SABnzbd repo
+  git:
+    repo: 'https://github.com/sabnzbd/sabnzbd.git'
+    dest: "{{ sabnzbd_directory }}"
+    version: master
+
+- name: Update file permissions
+  file:
+    path: "{{ sabnzbd_directory }}"
+    owner: "{{ sabnzbd_user }}"
+    group: "{{ sabnzbd_user }}"
+    recurse: yes
+
+- name: Copy service unit template
+  template:
+    src: sabnzbd.service.j2
+    dest: /etc/systemd/system/sabnzbd.service
+    mode: 0644
+  notify:
+    - restart sabnzbd
+
+- name: Set to start on boot
+  systemd:
+    name: sabnzbd.service
+    enabled: yes
+    daemon_reload: yes 

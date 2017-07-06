@@ -1,0 +1,21 @@
+---
+# vars file for ansible-role-sabnzbd
+rpmforge_repo: http://repository.it4i.cz/mirrors/repoforge/redhat/el7/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el7.rf.x86_64.rpm
+sabnzbd_prereqs:
+  - git
+  - par2cmdline
+  - python
+  - python-cheetah
+  - wget 
+  - p7zip
+  - unzip
+  - tar
+  - gcc
+  - python-feedparser
+  - python-configobj
+  - python-dbus
+  - python-devel
+  - unrar
+  - python-pip
+pip_prereqs:
+  - sabyenc
