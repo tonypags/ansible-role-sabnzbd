@@ -1,22 +1,31 @@
-Role Name
+ansible-role-sabnzbd
 =========
 
-A brief description of the role goes here.
+An Ansible role to install SABnzbd on CentOS 7
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- CentOS/Red Hat Enterprise Linux 7 
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Defaults:
+
+- sabnzbd_directory = /opt/sabnzbd/ - directory to clone the sabnzbd repo to
+- sabnzbd_user = usenet - user that will run sabnzbd
+
+Vars:
+
+- rpmforge_repo - url to the rpmforge repo RPM package, required for the non-free unrar package
+- sabnzbd_prereqs - all the sabnzbd prerequisite packages that need to be installed via Yum
+- pip_prereqs - all the pip prerequisite packages that need to be installed via pip
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None
 
 Example Playbook
 ----------------
@@ -25,14 +34,14 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: mujahidhemani.sabnzbd }
 
 License
 -------
 
-BSD
+GPLv3
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Author: Mujahid Hemani
