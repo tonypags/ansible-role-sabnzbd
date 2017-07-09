@@ -4,6 +4,7 @@
   user:
     name: "{{ sabnzbd_user }}"
     state: present
+    shell: /sbin/nologin
   tags:
     - add_sabnzbd_user
 
