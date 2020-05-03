@@ -1,8 +1,14 @@
 ---
 # tasks file for ansible-role-sabnzbd
 - name: Create SABnzbd user
+  group:
+    name: "{{ sabnzbd_user }}"
+    gid: "{{ sabnzbd_uid }}"
+    state: present
   user:
     name: "{{ sabnzbd_user }}"
+    uid: "{{ sabnzbd_uid }}"
+    group: "{{ sabnzbd_user }}"
     state: present
     shell: /sbin/nologin
   tags:

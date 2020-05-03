@@ -3,3 +3,4 @@
 
 sabnzbd_directory: /opt/sabnzbd/
 sabnzbd_user: usenet
+sabnzbd_uid: 2501
